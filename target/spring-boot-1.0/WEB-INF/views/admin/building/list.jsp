@@ -320,6 +320,12 @@
 <script>
     function assignmentBuilding(buildingId) {
         $('#assignmentBuildingModal').modal();
+        loadStaffs(buildingId);
+        $('#buildingId').val(buildingId);
+    }
+
+    function loadStaffs(){
+
     }
 
     $('#btnAssignmentBuilding').click(function (e) {
@@ -332,6 +338,12 @@
         data['staffs'] = staffs;
         console.log("Ok");
     });
+
+    function assignment(){
+
+    }
+
+
     function deleteBuilding(id){
         var buildingId = [id];
         deleteBuildings(buildingId);
