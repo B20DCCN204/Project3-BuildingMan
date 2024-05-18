@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
+<%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 <c:url var="buildingSearchUrl" value="/admin/building-list"></c:url>
 <c:url var="buildingAPI" value="api/building"/>
 <html>
@@ -53,14 +54,15 @@
 
                         <div class="widget-body" style="display: block; font-family: 'Times New Roman', Times, serif;">
                             <div class="widget-main">
-                                <form:form modelAttribute="buildingSearch" action="${buildingSearchUrl}" id="formList" method="GET">
+                                <form:form modelAttribute="buildingSearch" action="${buildingSearchUrl}" id="formList"
+                                           method="GET">
                                     <div class="row">
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
                                                     <label class="form-label">Tên tòa nhà</label>
                                                     <form:input class="form-control" path="name"
-                                                           placeholder="Nhập tên tòa nhà"/>
+                                                                placeholder="Nhập tên tòa nhà"/>
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <label class="form-label">Diện tích sàn</label>
@@ -137,7 +139,7 @@
                                                 <div class="col-xs-5">
                                                     <label class="form-label">Tên quản lí</label>
                                                     <form:input class="form-control" path="managerName"
-                                                           placeholder="Nhập tên quản lí"/>
+                                                                placeholder="Nhập tên quản lí"/>
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <label class="form-label">Số điện thoại quản lí</label>
@@ -163,7 +165,8 @@
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-3">
-                                                    <button class="btn btn-xs btn-danger" id="btnSearchBuilding">
+                                                    <button type="submit" class="btn btn-xs btn-danger"
+                                                            id="btnSearchBuilding">
                                                         <i class="ace-icon fa fa-search bigger-110"></i>
                                                         Tìm kiếm
                                                     </button>
@@ -185,7 +188,8 @@
                                     <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
                                 </svg>
                             </a>
-                            <a type="button" class="btn btn-danger btn-no-border" title="Xóa tòa nhà" id="btnDeleteBuildings">
+                            <a type="button" class="btn btn-danger btn-no-border" title="Xóa tòa nhà"
+                               id="btnDeleteBuildings">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-building-dash" viewBox="0 0 16 16">
                                     <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1"/>
@@ -209,68 +213,53 @@
             <!-- Table  -->
             <div class="row" style="font-family: 'Times New Roman', Times, serif;">
                 <div class="col-xs-12">
-                    <table id="simple-table" class="table table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th class="center">
-                                <label class="pos-rel">
-                                    <input type="checkbox" class="ace" name="checkList" value="">
-                                    <span class="lbl"></span>
-                                </label>
-                            </th>
-                            <th>Tên tòa nhà</th>
-                            <th>Địa chỉ</th>
-                            <th>Số tầng hầm</th>
-                            <th>Tên quản lí</th>
-                            <th>SĐT quản lí</th>
-                            <th>Diện tích sàn</th>
-                            <th>Diện tích thuê</th>
-                            <th>Giá thuê</th>
-                            <th>Phí dịch vụ</th>
-                            <th>Phí môi giới</th>
-                            <th>Thao tác</th>
-                        </tr>
-                        </thead>
+                    <form:form modelAttribute="buildingList">
+                        <display:table name="buildingList.listResult" cellspacing="0" cellpadding="0"
+                                       requestURI="${buildingSearchUrl}" partialList="true" sort="external"
+                                       size="${buildingList.totalItems}" defaultsort="2" defaultorder="ascending"
+                                       id="tableList" pagesize="${buildingList.maxPageItems}"
+                                       export="false"
+                                       class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
+                                       style="margin: 3em 0 1.5em;">
+                            <display:column title="<fieldset class='form-group'>
+												        <input type='checkbox' id='checkAll' class='check-box-element'>
+												        </fieldset>" class="center select-cell"
+                                            headerClass="center select-cell">
+                                <fieldset>
+                                    <input type="checkbox" name="checkList" value="${tableList.id}"
+                                           id="checkbox_${tableList.id}" class="check-box-element"/>
+                                </fieldset>
+                            </display:column>
+                            <display:column headerClass="text-left" property="name" title="Tên tòa nhà" />
+                            <display:column headerClass="text-left" property="address" title="Địa chỉ" />
+                            <display:column headerClass="text-left" property="numberOfBasement" title="Số tầng hầm" />
+                            <display:column headerClass="text-left" property="managerName" title="Tên quản lí" />
+                            <display:column headerClass="text-left" property="managerPhone" title="Sđt quản lí" />
+                            <display:column headerClass="text-left" property="floorArea" title="D.T sàn" />
+                            <display:column headerClass="text-left" property="rentArea" title="D.T thuê" />
+                            <display:column headerClass="text-left" property="emptyArea" title="D.T trống" />
+                            <display:column headerClass="text-left" property="rentPrice" title="Giá thuê" />
+                            <display:column headerClass="text-left" property="serviceFee" title="Phí dịch vụ" />
+                            <display:column headerClass="text-left" property="brokerageFee" title="Phí môi giới" />
+                            <display:column headerClass="text-left" title="Thao tác">
+                                <div class="hidden-sm hidden-xs btn-group">
+                                    <a class="btn btn-xs btn-success" title="Giao tòa nhà"
+                                            onclick="assignmentBuilding(${tableList.id})">
+                                        <i class="ace-icon fa fa-list bigger-120"></i>
+                                    </a>
 
-                        <tbody>
-                        <c:forEach var="item" items="${buildingList}">
-                            <tr>
-                                <td class="center">
-                                    <label class="pos-rel">
-                                        <input type="checkbox" class="ace" name="checkList" value="${item.id}">
-                                        <span class="lbl"></span>
-                                    </label>
-                                </td>
-                                <td>${item.name}</td>
-                                <td>${item.address}</td>
-                                <td>${item.numberOfBasement}</td>
-                                <td>${item.managerName}</td>
-                                <td>${item.managerPhone}</td>
-                                <td>${item.floorArea}</td>
-                                <td>${item.rentArea}</td>
-                                <td>${item.rentPrice}</td>
-                                <td>${item.serviceFee}</td>
-                                <td>${item.brokerageFee}</td>
-                                <td>
-                                    <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-success" title="Giao tòa nhà"
-                                                onclick="assignmentBuilding(${item.id})">
-                                            <i class="ace-icon fa fa-list bigger-120"></i>
-                                        </button>
+                                    <a type="button" class="btn btn-xs btn-info" title="Sửa tòa nhà"
+                                       href="/admin/building-edit-${tableList.id}">
+                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                    </a>
 
-                                        <a type="button" class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit-${item.id}">
-                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                        </a>
-
-                                        <button class="btn btn-xs btn-danger" onclick="deleteBuilding(${item.id})">
-                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                                    <a class="btn btn-xs btn-danger" onclick="deleteBuilding(${tableList.id})">
+                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                    </a>
+                                </div>
+                            </display:column>
+                        </display:table>
+                    </form:form>
                 </div><!-- /.span -->
             </div>
         </div><!-- /.page-content -->
@@ -324,7 +313,7 @@
         $('#buildingId').val(buildingId);
     }
 
-    function loadStaffs(){
+    function loadStaffs() {
 
     }
 
@@ -339,12 +328,12 @@
         console.log("Ok");
     });
 
-    function assignment(){
+    function assignment() {
 
     }
 
 
-    function deleteBuilding(id){
+    function deleteBuilding(id) {
         var buildingId = [id];
         deleteBuildings(buildingId);
     }
@@ -358,17 +347,17 @@
         console.log("Ok");
     });
 
-    function deleteBuildings(data){
+    function deleteBuildings(data) {
         $.ajax({
             type: "DELETE",
             url: "${buildingAPI}/" + data,
             contentType: "application/json",
             data: JSON.stringify(data),
             dataType: "JSON",
-            success: function(response){
+            success: function (response) {
                 console.log("Success");
             },
-            error: function(response){
+            error: function (response) {
                 console.log("error")
             }
         });

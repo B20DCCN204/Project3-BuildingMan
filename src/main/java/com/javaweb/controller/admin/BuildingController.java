@@ -7,8 +7,12 @@ import com.javaweb.enums.districtCode;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
+import com.javaweb.service.IBuildingService;
+import com.javaweb.service.impl.BuildingService;
 import com.javaweb.service.impl.UserService;
+import com.javaweb.utils.DisplayTagUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,26 +29,21 @@ public class BuildingController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private BuildingService buildingService;
 
     @GetMapping("admin/building-list")
     public ModelAndView buildingList(@ModelAttribute BuildingSearchRequest buildingSearchRequest, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/building/list");
         mav.addObject("buildingSearch", buildingSearchRequest);
+        DisplayTagUtils.of(request, buildingSearchRequest);
         //Lay data
-        List<BuildingSearchResponse> buildingList = new ArrayList<>();
-        BuildingSearchResponse building1 = new BuildingSearchResponse();
-        building1.setId(1L);
-        building1.setName("Vinhome West Point");
-        building1.setAddress("Hà Nội");
-        building1.setNumberOfBasement(1L);
-        building1.setFloorArea(300L);
-        building1.setManagerName("Kiều Minh Giang");
-        building1.setManagerPhone("012334325");
-        building1.setRentArea("100, 200, 300");
-        building1.setRentPrice(1000L);
-        building1.setBrokerageFee(245.35D);
-        buildingList.add(building1);
-        mav.addObject("buildingList", buildingList);
+        List<BuildingSearchResponse> buildingList = buildingService.findAll(buildingSearchRequest, PageRequest.of(buildingSearchRequest.getPage() - 1, buildingSearchRequest.getMaxPageItems()));
+        BuildingSearchResponse buildingSearchResponse = new BuildingSearchResponse();
+        buildingSearchResponse.setListResult(buildingList);
+        buildingSearchResponse.setTotalItems(buildingService.countTotalItems(buildingSearchRequest));
+
+        mav.addObject("buildingList", buildingSearchResponse);
         mav.addObject("listStaffs", userService.getStaffs());
         mav.addObject("listDistricts", districtCode.type());
         mav.addObject("typeCodes", buildingType.type());
