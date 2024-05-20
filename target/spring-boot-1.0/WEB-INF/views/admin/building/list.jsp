@@ -285,15 +285,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace" id="checkbox_1" value="1">
-                                <span class="lbl"></span>
-                            </label>
-                        </td>
-                        <td>Nguyễn Văn A</td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -307,58 +299,95 @@
     </div>
 </div>
 <script>
+
+    // Giao tòa nhà cho nhân viên quản lí
     function assignmentBuilding(buildingId) {
         $('#assignmentBuildingModal').modal();
         loadStaffs(buildingId);
         $('#buildingId').val(buildingId);
     }
 
-    function loadStaffs() {
-
+    function loadStaffs(buildingId) {
+        $.ajax({
+            type: "GET",
+            url: "/api/building/" + buildingId + "/staffs",
+            contentType: "application/json",
+            // data: JSON.stringify(data),
+            dataType: "JSON",
+            success: function (response) {
+                let row = '';
+                $.each(response.data, function (index, item){
+                    row += '<tr>';
+                    row += '<td><input type="checkbox" class="check-box-element" value=' + item.staffId + ' id="checkbox_' + item.staffId + '" ' + item.checked + '></td>';
+                    row += '<td>' + item.fullName + '</td>';
+                    row += '</tr>';
+                });
+                $('#staffList tbody').html(row);
+            },
+            error: function (response) {
+                showMessageConfirmation("Thất bại", "Thực hiện xóa thất bại!", "warning", "/admin/building-list?message=error_system");
+            }
+        });
     }
 
     $('#btnAssignmentBuilding').click(function (e) {
         e.preventDefault();
-        var data = {};
+        let data = {};
         data['buildingId'] = $('#buildingId').val();
-        var staffs = $('#staffList').find('tbody input[type = checkbox]:checked').map(function () {
+        let staffs = $('#staffList').find('tbody input[type = checkbox]:checked').map(function () {
             return $(this).val();
         }).get();
         data['staffs'] = staffs;
-        console.log("Ok");
+        assignment(data);
     });
 
-    function assignment() {
-
+    function assignment(data) {
+        $.ajax({
+            type: "POST",
+            url: "/api/building/assignment",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: "JSON",
+            success: function (response) {
+                console.info("success");
+            },
+            error: function (response) {
+                console.info("fail");
+            }
+        });
     }
 
+    // Xóa tòa nhà
 
     function deleteBuilding(id) {
-        var buildingId = [id];
-        deleteBuildings(buildingId);
+        let buildingId = [id];
+        showAlertBeforeDelete(function () {
+            event.preventDefault();
+            deleteBuildings(buildingId);
+        });
     }
 
     $('#btnDeleteBuildings').click(function (e) {
         e.preventDefault();
-        var buildingIds = $('#simple-table').find('tbody input[type = checkbox]:checked').map(function () {
-            return $(this).val();
-        }).get();
-        deleteBuildings(buildingIds);
-        console.log("Ok");
+        showAlertBeforeDelete(function () {
+            let buildingIds = $('#tableList').find('tbody input[type = checkbox]:checked').map(function () {
+                return $(this).val();
+            }).get();
+            deleteBuildings(buildingIds);
+        });
     });
 
     function deleteBuildings(data) {
         $.ajax({
             type: "DELETE",
-            url: "${buildingAPI}/" + data,
+            url: "/api/building/" + data,
             contentType: "application/json",
-            data: JSON.stringify(data),
-            dataType: "JSON",
+            dataType: "text",
             success: function (response) {
-                console.log("Success");
+                showMessageConfirmation("Thành công", response, "success", "/admin/building-list?message=delete_success");
             },
             error: function (response) {
-                console.log("error")
+                showMessageConfirmation("Thất bại", "Thực hiện xóa thất bại!", "warning", "/admin/building-list?message=error_system");
             }
         });
     }

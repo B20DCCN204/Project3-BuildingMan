@@ -31,7 +31,7 @@ public class BuildingEntity extends BaseEntity{
     @Column(name = "rentprice")
     private Integer rentPrice;
     @Column(name = "rentpricedescription")
-    private String rentPriceDes;
+    private String rentPriceDescription;
     @Column(name = "servicefee")
     private String serviceFee;
     @Column(name = "carfee")
@@ -183,12 +183,12 @@ public class BuildingEntity extends BaseEntity{
         return this;
     }
 
-    public String getRentPriceDes() {
-        return rentPriceDes;
+    public String getRentPriceDescription() {
+        return rentPriceDescription;
     }
 
-    public BuildingEntity setRentPriceDes(String rentPriceDes) {
-        this.rentPriceDes = rentPriceDes;
+    public BuildingEntity setRentPriceDescription(String rentPriceDescription) {
+        this.rentPriceDescription = rentPriceDescription;
         return this;
     }
 

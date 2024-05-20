@@ -67,7 +67,7 @@
         function showAlertBeforeDelete(callback) {
             swal({
                 title: "Xác nhận xóa",
-                text: "Bạn có chắc chắn xóa những dòng đã chọn",
+                text: "Bạn có chắc chắn muốn xóa",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonText: "Xác nhận",
@@ -77,11 +77,30 @@
             }).then(function (res) {
                 if(res.value){
                     callback();
-                }else if(res.dismiss == 'cancel'){
+                }else if(res.dismiss === 'cancel'){
                     console.log('cancel');
                 }
             });
         }
+		function showMessageConfirmation(title, message, type, redirectUrl) {
+			var statusBtn = ('success' === type) ? 'success' : 'danger';
+
+			swal({
+				title: title,
+				text: message,
+				type: type,
+				showConfirmButton: true,
+				confirmButtonText: "Xác nhận",
+				confirmButtonClass: "btn btn-" + statusBtn,
+				allowOutsideClick: true
+			}).then(function(res) {
+				if (res.value) {
+					if ("" !== redirectUrl) {
+						window.location.href = redirectUrl;
+					}
+				}
+			});
+		}
 	</script>
 </body>
 </html>

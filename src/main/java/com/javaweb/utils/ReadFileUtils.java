@@ -1,5 +1,7 @@
 package com.javaweb.utils;
 
+import org.springframework.stereotype.Component;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +12,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-
+@Component
 public class ReadFileUtils extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,7 +26,7 @@ public class ReadFileUtils extends HttpServlet {
         }
         ServletOutputStream outStream;
         outStream = response.getOutputStream();
-        FileInputStream fin = new FileInputStream("C://home/office" + relativeImagePath);
+        FileInputStream fin = new FileInputStream("D://Program Files/toeic/JavaBackend/Document/RepoImage" + relativeImagePath);
         BufferedInputStream bin = new BufferedInputStream(fin);
         BufferedOutputStream bout = new BufferedOutputStream(outStream);
         int ch =0;

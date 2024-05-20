@@ -192,13 +192,26 @@
                                 <form:checkboxes path="typeCode" items="${typeCodes}"/>
                             </div>
                         </div>
-                        <form:hidden path="id"/>
-                        <!-- <div class="form-group">
-                            <label class="col-xs-3">Hình đại diện</label>
-                            <div class="col-xs-3">
-                                <input class="form-control" type="image" id="name" name="name">
+                        <div class="form-group">
+                            <label class="col-xs-3">Ghi chú</label>
+                            <div class="col-xs-9">
+                                <form:input class="form-control" path="note"/>
                             </div>
-                        </div> -->
+                        </div>
+                        <form:hidden path="id"/>
+                        <div class="form-group">
+                            <label class="col-sm-3 no-padding-right">Hình đại diện</label>
+                            <input class="col-sm-3 no-padding-right" type="file" id="uploadImage"/>
+                            <div class="col-sm-9">
+                                <c:if test="${not empty buildingEdit.avatar}">
+                                    <c:set var="imagePath" value="/repository${buildingEdit.avatar}"/>
+                                    <img src="${imagePath}" id="viewImage" width="300px" height="300px" style="margin-top: 50px">
+                                </c:if>
+                                <c:if test="${empty buildingEdit.avatar}">
+                                    <img src="/admin/image/default.png" id="viewImage" width="300px" height="300px">
+                                </c:if>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-xs-3">
                             </div>
@@ -221,31 +234,37 @@
     </div>
 </div><!-- /.main-content -->
 <script>
-    $('#btnAddOrUpdateBuilding').click(function(e){
+    var imageBase64 = '';
+    var imageName = '';
+
+    $('#btnAddOrUpdateBuilding').click(function(e) {
         e.preventDefault();
         var data = {};
         var typeCode = [];
         var formData = $('#form-edit').serializeArray();
-        $.each(formData, function(i, v){
+        $.each(formData, function (i, v) {
             if(v.name != 'typeCode'){
                 data["" + v.name + ""] = v.value;
             }else{
                 typeCode.push(v.value);
             }
-        })
+
+            if ('' !== imageBase64) {
+                data['imageBase64'] = imageBase64;
+                data['imageName'] = imageName;
+            }
+        });
+
         data['typeCode'] = typeCode;
-        //validate
+
         if(typeCode != ''){
             addOrUpdateBuilding(data);
         }else{
             alert("TypeCode is required!!!")
             window.location.href = "<c:url value="/admin/building-edit?typeCode=required"/>";
         }
-
-    })
-
+    });
     function addOrUpdateBuilding(data){
-        // call api
         $.ajax({
             type: "POST",
             url: "${buildingAPI}",
@@ -253,12 +272,35 @@
             data: JSON.stringify(data),
             dataType: "JSON",
             success: function(response){
-                console.log("Success");
+                showMessageConfirmation("Thành công", "Thao tác thành công!", "success", "/admin/building-edit-" + response.id);
             },
             error: function(response){
-                console.log("error")
+                showMessageConfirmation("Thất bại", "Đã có lỗi xảy ra! Vui lòng kiểm tra lại.", "warning", "/admin/building-edit");
             }
         });
+    }
+
+    $('#uploadImage').change(function (event) {
+        var reader = new FileReader();
+        var file = $(this)[0].files[0];
+        reader.onload = function (e) {
+            imageBase64 = e.target.result;
+            imageName = file.name; // ten hinh khong dau, khoang cach. Dat theo format sau: a-b-c
+        };
+        reader.readAsDataURL(file);
+        openImage(this, "viewImage");
+    });
+
+    function openImage(input, imageView) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#' + imageView).attr('src', reader.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 
     $('#btnCancel').click(function (e){
