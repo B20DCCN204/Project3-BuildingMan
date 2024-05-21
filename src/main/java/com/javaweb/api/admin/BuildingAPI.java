@@ -3,6 +3,7 @@ package com.javaweb.api.admin;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.service.IAssignmentBuildingService;
 import com.javaweb.service.IBuildingService;
 import com.javaweb.service.impl.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class BuildingAPI {
 
     @Autowired
     private IBuildingService buildingService;
+    @Autowired
+    private IAssignmentBuildingService assignmentBuildingService;
 
     @PostMapping
     public BuildingDTO addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO){
@@ -38,7 +41,8 @@ public class BuildingAPI {
     }
 
     @PostMapping("/assignment")
-    public void updateAssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
-        System.out.println("OK");
+    public ResponseEntity<?> updateAssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
+        assignmentBuildingService.assignBuildingToStaffs(assignmentBuildingDTO);
+        return ResponseEntity.status(HttpStatus.OK).body("Thực hiện giao tòa nhà thành công");
     }
 }

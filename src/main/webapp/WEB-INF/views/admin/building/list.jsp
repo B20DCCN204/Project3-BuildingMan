@@ -347,12 +347,12 @@
             url: "/api/building/assignment",
             contentType: "application/json",
             data: JSON.stringify(data),
-            dataType: "JSON",
+            dataType: "text",
             success: function (response) {
-                console.info("success");
+                showMessageConfirmation("Thành công", response, "success", "/admin/building-list?message=assign_success");
             },
             error: function (response) {
-                console.info("fail");
+                showMessageConfirmation("Thất bại", "Thực hiện giao thất bại!", "warning", "/admin/building-list?message=error_system");
             }
         });
     }
