@@ -1,5 +1,6 @@
 package com.javaweb.repository;
 
+import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.repository.custom.UserRepositoryCustom;
 import org.springframework.data.domain.Page;
@@ -22,4 +23,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> , UserRe
     List<UserEntity> findByIdIn(List<Long> id);
 
     List<UserEntity> findByStatusAndRoles_Code(int status, String roleCode);
+
 }

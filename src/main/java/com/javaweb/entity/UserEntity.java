@@ -35,9 +35,9 @@ public class UserEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private List<RoleEntity> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy="staff", fetch = FetchType.LAZY)
-    private List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
-//
+    @ManyToMany(mappedBy = "users")
+    private List<BuildingEntity> buildings = new ArrayList<>();
+
 //    @OneToMany(mappedBy="users", fetch = FetchType.LAZY)
 //    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
 
@@ -45,12 +45,12 @@ public class UserEntity extends BaseEntity {
         return serialVersionUID;
     }
 
-    public List<AssignmentBuildingEntity> getAssignmentBuildingEntities() {
-        return assignmentBuildingEntities;
+    public List<BuildingEntity> getBuildings() {
+        return buildings;
     }
 
-    public UserEntity setAssignmentBuildingEntities(List<AssignmentBuildingEntity> assignmentBuildingEntities) {
-        this.assignmentBuildingEntities = assignmentBuildingEntities;
+    public UserEntity setBuildings(List<BuildingEntity> buildings) {
+        this.buildings = buildings;
         return this;
     }
 

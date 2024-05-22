@@ -1,9 +1,6 @@
 package com.javaweb.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,11 +66,23 @@ public class BuildingEntity extends BaseEntity{
     @Column(name = "managerphone")
     private String managerPhone;
 
-    @OneToMany(mappedBy = "building")
+    @OneToMany(mappedBy = "building", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<RentAreaEntity> rentAreaEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "building")
-    private List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "assignmentbuilding",
+            joinColumns = @JoinColumn(name = "buildingid", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "staffid", nullable = false))
+    private List<UserEntity> users = new ArrayList<>();
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public BuildingEntity setUsers(List<UserEntity> users) {
+        this.users = users;
+        return this;
+    }
 
     public List<RentAreaEntity> getRentAreaEntities() {
         return rentAreaEntities;
@@ -84,14 +93,6 @@ public class BuildingEntity extends BaseEntity{
         return this;
     }
 
-    public List<AssignmentBuildingEntity> getAssignmentBuildingEntities() {
-        return assignmentBuildingEntities;
-    }
-
-    public BuildingEntity setAssignmentBuildingEntities(List<AssignmentBuildingEntity> assignmentBuildingEntities) {
-        this.assignmentBuildingEntities = assignmentBuildingEntities;
-        return this;
-    }
 
     public String getName() {
         return name;

@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 public class BuildingConverter {
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private RentAreaConverter rentAreaConverter;
 
     public BuildingSearchResponse toBuildingSearchResponse(BuildingEntity building){
         BuildingSearchResponse buildingSearchResponse = modelMapper.map(building, BuildingSearchResponse.class);
@@ -37,6 +39,7 @@ public class BuildingConverter {
         buildingEntity.setTypeCode(
                 String.join(",", buildingDTO.getTypeCode())
         );
+        buildingEntity.setRentAreaEntities(rentAreaConverter.toListRentAreaEntity(buildingDTO.getRentArea(), buildingEntity));
         return buildingEntity;
     }
 
