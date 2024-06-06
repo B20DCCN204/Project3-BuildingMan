@@ -7,6 +7,7 @@ import com.javaweb.enums.districtCode;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
+import com.javaweb.security.utils.SecurityUtils;
 import com.javaweb.service.IBuildingService;
 import com.javaweb.service.impl.BuildingService;
 import com.javaweb.service.impl.UserService;
@@ -36,17 +37,21 @@ public class BuildingController {
     public ModelAndView buildingList(@ModelAttribute BuildingSearchRequest buildingSearchRequest, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/building/list");
         mav.addObject("buildingSearch", buildingSearchRequest);
-        DisplayTagUtils.of(request, buildingSearchRequest);
-        //Lay data
-        List<BuildingSearchResponse> buildingList = buildingService.findAll(buildingSearchRequest, PageRequest.of(buildingSearchRequest.getPage() - 1, buildingSearchRequest.getMaxPageItems()));
+        mav.addObject("listStaffs", userService.getStaffs());
+        mav.addObject("listDistricts", districtCode.type());
+        mav.addObject("typeCodes", buildingType.type());
+        if(SecurityUtils.getAuthorities().contains("ROLE_STAFF")){
+            Long staffId = SecurityUtils.getPrincipal().getId();
+            buildingSearchRequest.setStaffId(staffId);
+        }
         BuildingSearchResponse buildingSearchResponse = new BuildingSearchResponse();
+        DisplayTagUtils.of(request, buildingSearchResponse);
+        //Lay data
+        List<BuildingSearchResponse> buildingList = buildingService.findAll(buildingSearchRequest, PageRequest.of(buildingSearchResponse.getPage() - 1, buildingSearchResponse.getMaxPageItems()));
         buildingSearchResponse.setListResult(buildingList);
         buildingSearchResponse.setTotalItems(buildingService.countTotalItems(buildingSearchRequest));
 
         mav.addObject("buildingList", buildingSearchResponse);
-        mav.addObject("listStaffs", userService.getStaffs());
-        mav.addObject("listDistricts", districtCode.type());
-        mav.addObject("typeCodes", buildingType.type());
         return mav;
     }
 

@@ -146,13 +146,15 @@
                                                     <form:input class="form-control" path="managerPhone"
                                                                 placeholder="Nhập sdt quản lí"/>
                                                 </div>
-                                                <div class="col-xs-2">
-                                                    <label class="form-label">Chọn nhân viên phụ trách</label>
-                                                    <form:select path="staffId" id="staff" class="form-control">
-                                                        <form:option value="">---Chọn nhân viên---</form:option>
-                                                        <form:options items="${listStaffs}"/>
-                                                    </form:select>
-                                                </div>
+                                                <security:authorize access="hasRole('MANAGER')">
+                                                    <div class="col-xs-2">
+                                                        <label class="form-label">Chọn nhân viên phụ trách</label>
+                                                        <form:select path="staffId" id="staff" class="form-control">
+                                                            <form:option value="">---Chọn nhân viên---</form:option>
+                                                            <form:options items="${listStaffs}"/>
+                                                        </form:select>
+                                                    </div>
+                                                </security:authorize>
                                             </div>
                                         </div>
 
@@ -243,10 +245,12 @@
                             <display:column headerClass="text-left" property="brokerageFee" title="Phí môi giới" />
                             <display:column headerClass="text-left" title="Thao tác">
                                 <div class="hidden-sm hidden-xs btn-group">
-                                    <a class="btn btn-xs btn-success" title="Giao tòa nhà"
-                                            onclick="assignmentBuilding(${tableList.id})">
-                                        <i class="ace-icon fa fa-list bigger-120"></i>
-                                    </a>
+                                    <security:authorize access="hasRole('MANAGER')">
+                                        <a class="btn btn-xs btn-success" title="Giao tòa nhà"
+                                           onclick="assignmentBuilding(${tableList.id})">
+                                            <i class="ace-icon fa fa-list bigger-120"></i>
+                                        </a>
+                                    </security:authorize>
 
                                     <a type="button" class="btn btn-xs btn-info" title="Sửa tòa nhà"
                                        href="/admin/building-edit-${tableList.id}">
