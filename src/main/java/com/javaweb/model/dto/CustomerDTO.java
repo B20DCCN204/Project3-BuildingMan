@@ -6,7 +6,7 @@ public class CustomerDTO extends AbstractDTO{
     @NotBlank(message = "Name is mandatory")
     private String fullname;
     private String managementStaff;
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "Phone number is mandatory")
     private String phone;
     private String email;
     private String demand;

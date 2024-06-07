@@ -40,7 +40,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     private String buildQueryFilter(CustomerSearchRequest customerSearchRequest) {
         StringBuilder sql = new StringBuilder("SELECT c.* FROM customer c ");
 
-        StringBuilder whereSql = new StringBuilder("WHERE 1 = 1 ");
+        StringBuilder whereSql = new StringBuilder("WHERE 1 = 1 AND c.is_active = 1 ");
         StringBuilder joinSql = new StringBuilder();
         querySqlJoin(customerSearchRequest, joinSql);
         querySqlWhereNomal(customerSearchRequest, whereSql);

@@ -19,6 +19,8 @@ public class CustomerEntity extends BaseEntity{
     private String demand;
     @Column(name = "status")
     private String status;
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 
     @ManyToMany
     @JoinTable(name = "assignmentcustomer",
@@ -80,6 +82,15 @@ public class CustomerEntity extends BaseEntity{
 
     public CustomerEntity setStatus(String status) {
         this.status = status;
+        return this;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public CustomerEntity setActive(Boolean active) {
+        isActive = active;
         return this;
     }
 

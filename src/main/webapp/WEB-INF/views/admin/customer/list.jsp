@@ -106,20 +106,16 @@
                         <div class="widget-footer pull-right">
                             <a type="button" class="btn btn-info btn-no-border" href="/admin/customer-edit"
                                title="Thêm khách hàng">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-person-add" viewBox="0 0 16 16">
-                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"/>
-                                    <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
-                                    <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
                                 </svg>
                             </a>
                             <a type="button" class="btn btn-danger btn-no-border" title="Xóa khách hàng"
                                id="btnDeleteCustomers">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-person-dash" viewBox="0 0 16 16">
-                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1"/>
-                                    <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
-                                    <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-dash" viewBox="0 0 16 16">
+                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m0-7a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
                                 </svg>
                             </a>
                         </div>
@@ -175,7 +171,7 @@
                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                     </a>
 
-                                    <a class="btn btn-xs btn-danger" onclick="">
+                                    <a class="btn btn-xs btn-danger" onclick="deleteCustomer(${tableList.id})">
                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                     </a>
                                 </div>
@@ -213,8 +209,8 @@
             </div>
             <input type="hidden" id="customerId" value="1">
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" id="btnAssignmentBuilding">Giao khách hàng</button>
-                <button type="button" class="btn btn-danger" id>Hủy</button>
+                <button type="button" class="btn btn-info" id="btnAssignmentCustomer">Giao khách hàng</button>
+                <button type="button" class="btn btn-danger" id="btnCancelModal">Hủy</button>
             </div>
         </div>
 
@@ -223,9 +219,100 @@
 <script>
     function assignmentCustomer(customerId) {
         $('#assignmentCustomerModal').modal();
-        // loadStaffs(buildingId);
+        loadStaffs(customerId);
         $('#customerId').val(customerId);
     }
+
+    function loadStaffs(customerId){
+        $.ajax({
+            type: "GET",
+            url: "/api/customer/" + customerId + "/staffs",
+            contentType: "application/json",
+            // data: JSON.stringify(data),
+            dataType: "JSON",
+            success: function (response) {
+                let row = '';
+                $.each(response.data, function (index, item){
+                    row += '<tr>';
+                    row += '<td><input type="checkbox" class="check-box-element" value=' + item.staffId + ' id="checkbox_' + item.staffId + '" ' + item.checked + '></td>';
+                    row += '<td>' + item.fullName + '</td>';
+                    row += '</tr>';
+                });
+                $('#staffList tbody').html(row);
+            },
+            error: function (response) {
+                showMessageConfirmation("Thất bại", "Tải dữ liệu thất bại", "warning", "/admin/customer-list?message=error_system");
+            }
+        });
+    }
+
+    $('#btnAssignmentCustomer').click(function (e){
+        e.preventDefault();
+        let data = {};
+        data['customerId'] = $('#customerId').val();
+        let staffs = $('#staffList').find('tbody input[type = checkbox]:checked').map(function () {
+            return $(this).val();
+        }).get();
+        data['staffs'] = staffs;
+        assignment(data)
+    });
+
+    function assignment(data) {
+        $.ajax({
+            type: "POST",
+            url: "/api/customer/assignment",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: "text",
+            success: function (response) {
+                showMessageConfirmation("Thành công", response, "success", "/admin/customer-list?message=assign_success");
+            },
+            error: function (response) {
+                showMessageConfirmation("Thất bại", "Thực hiện giao thất bại!", "warning", "/admin/customer-list?message=error_system");
+            }
+        });
+    }
+
+    $('#btnCancelModal').click(function (e){
+        e.preventDefault();
+        $('#assignmentCustomerModal').modal('hide');
+    })
+
+    function deleteCustomer(id) {
+        let customerId = [id];
+        showAlertBeforeDelete(function () {
+            event.preventDefault();
+            deleteCustomers(customerId);
+        });
+    }
+
+    $('#btnDeleteCustomers').click(function (e){
+        e.preventDefault();
+        showAlertBeforeDelete(function () {
+            let customerIds = $('#tableList').find('tbody input[type = checkbox]:checked').map(function () {
+                return $(this).val();
+            }).get();
+            deleteCustomers(customerIds);
+        });
+    })
+
+    function deleteCustomers(data) {
+        $.ajax({
+            type: "DELETE",
+            url: "/api/customer/" + data,
+            contentType: "application/json",
+            dataType: "text",
+            success: function (response) {
+                showMessageConfirmation("Thành công", response, "success", "/admin/customer-list?message=delete_success");
+            },
+            error: function (response) {
+                showMessageConfirmation("Thất bại", "Thực hiện xóa thất bại!", "warning", "/admin/customer-list?message=error_system");
+            }
+        });
+    }
+
+
+
 </script>
 </body>
 </html>

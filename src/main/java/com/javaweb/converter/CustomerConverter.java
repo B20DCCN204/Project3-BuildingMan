@@ -1,6 +1,7 @@
 package com.javaweb.converter;
 
 import com.javaweb.entity.CustomerEntity;
+import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.response.CustomerSearchResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,4 +17,13 @@ public class CustomerConverter {
         return customerSearchResponse;
     }
 
+    public CustomerEntity toCustomerEntity(CustomerDTO customerDTO){
+        CustomerEntity customer = modelMapper.map(customerDTO, CustomerEntity.class);
+        return customer;
+    }
+
+    public CustomerDTO toCustomerDTO(CustomerEntity customer){
+        CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
+        return customerDTO;
+    }
 }

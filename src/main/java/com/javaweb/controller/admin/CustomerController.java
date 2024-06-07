@@ -2,6 +2,7 @@ package com.javaweb.controller.admin;
 
 import com.javaweb.enums.transactionType;
 import com.javaweb.model.dto.CustomerDTO;
+import com.javaweb.model.dto.TransactionDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.CustomerSearchResponse;
@@ -32,10 +33,11 @@ public class CustomerController {
     public ModelAndView customerList(@ModelAttribute CustomerSearchRequest customerSearchRequest, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/customer/list");
         mav.addObject("customerSearch", customerSearchRequest);
-        DisplayTagUtils.of(request, customerSearchRequest);
-        //Lay data
-        List<CustomerSearchResponse> customerList = customerService.findAll(customerSearchRequest, PageRequest.of(customerSearchRequest.getPage() - 1, customerSearchRequest.getMaxPageItems()));
+
         CustomerSearchResponse customerSearchResponse = new CustomerSearchResponse();
+        customerSearchResponse.setMaxPageItems(5);
+        DisplayTagUtils.of(request, customerSearchResponse);
+        List<CustomerSearchResponse> customerList = customerService.findAll(customerSearchRequest, PageRequest.of(customerSearchResponse.getPage() - 1, customerSearchResponse.getMaxPageItems()));
         customerSearchResponse.setListResult(customerList);
         customerSearchResponse.setTotalItems(customerService.countTotalItems(customerSearchRequest));
 
@@ -56,14 +58,18 @@ public class CustomerController {
     public ModelAndView editCustomer(@PathVariable("id") Long id){
         ModelAndView mav = new ModelAndView("admin/customer/edit");
         // Lấy customer
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(id);
-        customerDTO.setFullname("Kiều Minh Giang")
-                        .setPhone("0245435435")
-                                .setStatus("Đang xử lí");
+        CustomerDTO customerDTO = customerService.getCustomerById(id);
+
+        //CSKH
+        List<TransactionDTO> listCSKH = customerService.getTransactionByCodeAndCustomer("CSKH", id);
+
+        //DDX
+        List<TransactionDTO> listDDX = customerService.getTransactionByCodeAndCustomer("DDX", id);
 
         mav.addObject("transactionType", transactionType.type());
         mav.addObject("customerEdit", customerDTO);
+        mav.addObject("cskh", listCSKH);
+        mav.addObject("ddx", listDDX);
         return mav;
     }
 }

@@ -45,6 +45,7 @@ public class BuildingController {
             buildingSearchRequest.setStaffId(staffId);
         }
         BuildingSearchResponse buildingSearchResponse = new BuildingSearchResponse();
+        buildingSearchResponse.setMaxPageItems(5);
         DisplayTagUtils.of(request, buildingSearchResponse);
         //Lay data
         List<BuildingSearchResponse> buildingList = buildingService.findAll(buildingSearchRequest, PageRequest.of(buildingSearchResponse.getPage() - 1, buildingSearchResponse.getMaxPageItems()));
