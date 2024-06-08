@@ -77,13 +77,15 @@
 
                                         <div class="form-group">
                                             <div class="col-xs-12">
-                                                <div class="col-xs-2">
-                                                    <label class="form-label">Chọn nhân viên phụ trách</label>
-                                                    <form:select path="staffId" id="staff" class="form-control">
-                                                        <form:option value="">---Chọn nhân viên---</form:option>
-                                                        <form:options items="${listStaffs}"/>
-                                                    </form:select>
-                                                </div>
+                                                <security:authorize access="hasRole('MANAGER')">
+                                                    <div class="col-xs-4">
+                                                        <label class="form-label">Chọn nhân viên phụ trách</label>
+                                                        <form:select path="staffId" id="staff" class="form-control">
+                                                            <form:option value="">---Chọn nhân viên---</form:option>
+                                                            <form:options items="${listStaffs}"/>
+                                                        </form:select>
+                                                    </div>
+                                                </security:authorize>
                                             </div>
                                         </div>
 
@@ -104,20 +106,24 @@
                         </div>
 
                         <div class="widget-footer pull-right">
-                            <a type="button" class="btn btn-info btn-no-border" href="/admin/customer-edit"
-                               title="Thêm khách hàng">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
-                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                    <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
-                                </svg>
-                            </a>
-                            <a type="button" class="btn btn-danger btn-no-border" title="Xóa khách hàng"
-                               id="btnDeleteCustomers">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-dash" viewBox="0 0 16 16">
-                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m0-7a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                    <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
-                                </svg>
-                            </a>
+                            <security:authorize access="hasRole('MANAGER')">
+                                <a type="button" class="btn btn-info btn-no-border" href="/admin/customer-edit"
+                                   title="Thêm khách hàng">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                        <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+                                    </svg>
+                                </a>
+                            </security:authorize>
+                            <security:authorize access="hasRole('MANAGER')">
+                                <a type="button" class="btn btn-danger btn-no-border" title="Xóa khách hàng"
+                                   id="btnDeleteCustomers">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-dash" viewBox="0 0 16 16">
+                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m0-7a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                        <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+                                    </svg>
+                                </a>
+                            </security:authorize>
                         </div>
                     </div>
                 </div>
@@ -161,19 +167,22 @@
                             <display:column headerClass="text-left" property="status" title="Trạng thái" />
                             <display:column headerClass="text-left" title="Thao tác">
                                 <div class="hidden-sm hidden-xs btn-group">
-                                    <a class="btn btn-xs btn-success" title="Giao khách hàng"
-                                       onclick="assignmentCustomer(${tableList.id})">
-                                        <i class="ace-icon fa fa-list bigger-120"></i>
-                                    </a>
-
+                                    <security:authorize access="hasRole('MANAGER')">
+                                        <a class="btn btn-xs btn-success" title="Giao khách hàng"
+                                           onclick="assignmentCustomer(${tableList.id})">
+                                            <i class="ace-icon fa fa-list bigger-120"></i>
+                                        </a>
+                                    </security:authorize>
                                     <a type="button" class="btn btn-xs btn-info" title="Sửa khách hàng"
                                        href="/admin/customer-edit-${tableList.id}">
                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                     </a>
+                                    <security:authorize access="hasRole('MANAGER')">
+                                        <a class="btn btn-xs btn-danger" onclick="deleteCustomer(${tableList.id})">
+                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                        </a>
+                                    </security:authorize>
 
-                                    <a class="btn btn-xs btn-danger" onclick="deleteCustomer(${tableList.id})">
-                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                    </a>
                                 </div>
                             </display:column>
                         </display:table>

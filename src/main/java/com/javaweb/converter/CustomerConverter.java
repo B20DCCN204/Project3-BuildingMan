@@ -1,6 +1,7 @@
 package com.javaweb.converter;
 
 import com.javaweb.entity.CustomerEntity;
+import com.javaweb.enums.statusTransaction;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.response.CustomerSearchResponse;
 import org.modelmapper.ModelMapper;
@@ -14,6 +15,9 @@ public class CustomerConverter {
 
     public CustomerSearchResponse toCustomerSearchResponse(CustomerEntity customer){
         CustomerSearchResponse customerSearchResponse = modelMapper.map(customer, CustomerSearchResponse.class);
+        if(customer.getStatus() != null){
+            customerSearchResponse.setStatus(statusTransaction.valueOf(customer.getStatus()).getStatus());
+        }
         return customerSearchResponse;
     }
 

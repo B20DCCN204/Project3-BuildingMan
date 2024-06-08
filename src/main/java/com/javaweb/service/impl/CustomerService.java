@@ -6,6 +6,7 @@ import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.TransactionEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.enums.statusTransaction;
 import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.dto.TransactionDTO;
@@ -70,7 +71,7 @@ public class CustomerService implements ICustomerService {
     public void deleteCustomers(List<Long> ids) {
         List<CustomerEntity> customerEntities = customerRepository.findAllById(ids)
                 .stream()
-                .map(customer -> customer.setActive(false))
+                .map(customer -> customer.setActive(false).setStatus(statusTransaction.DA_XU_LY.name()))
                 .collect(Collectors.toList());
     }
 

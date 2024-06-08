@@ -1,11 +1,13 @@
 package com.javaweb.controller.admin;
 
+import com.javaweb.enums.statusTransaction;
 import com.javaweb.enums.transactionType;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.dto.TransactionDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.CustomerSearchResponse;
+import com.javaweb.security.utils.SecurityUtils;
 import com.javaweb.service.ICustomerService;
 import com.javaweb.service.IUserService;
 import com.javaweb.utils.DisplayTagUtils;
@@ -33,6 +35,10 @@ public class CustomerController {
     public ModelAndView customerList(@ModelAttribute CustomerSearchRequest customerSearchRequest, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/customer/list");
         mav.addObject("customerSearch", customerSearchRequest);
+        if(SecurityUtils.getAuthorities().contains("ROLE_STAFF")){
+            Long staffId = SecurityUtils.getPrincipal().getId();
+            customerSearchRequest.setStaffId(staffId);
+        }
 
         CustomerSearchResponse customerSearchResponse = new CustomerSearchResponse();
         customerSearchResponse.setMaxPageItems(5);
@@ -51,6 +57,7 @@ public class CustomerController {
     public ModelAndView addCustomer(@ModelAttribute("customerEdit") CustomerDTO customerDTO){
         ModelAndView mav = new ModelAndView("admin/customer/edit");
         mav.addObject("customerEdit", customerDTO);
+        mav.addObject("statusType", statusTransaction.type());
         return mav;
     }
 
@@ -68,6 +75,7 @@ public class CustomerController {
 
         mav.addObject("transactionType", transactionType.type());
         mav.addObject("customerEdit", customerDTO);
+        mav.addObject("statusType", statusTransaction.type());
         mav.addObject("cskh", listCSKH);
         mav.addObject("ddx", listDDX);
         return mav;

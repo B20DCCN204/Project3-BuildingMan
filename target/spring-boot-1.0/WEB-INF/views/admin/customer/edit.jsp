@@ -77,10 +77,14 @@
                                 <form:input class="form-control" path="demand"/>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-xs-3">Tình trạng</label>
-                            <div class="col-xs-9">
-                                <form:input class="form-control" path="status"/>
+                            <div class="col-xs-5">
+                                <form:select path="status" id="staff" class="form-control">
+                                    <form:option value="">---Chọn tình trạng---</form:option>
+                                    <form:options items="${statusType}"/>
+                                </form:select>
                             </div>
                         </div>
 

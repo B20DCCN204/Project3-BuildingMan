@@ -17,13 +17,13 @@
 	<!-- Navigation -->
 	<%@ include file="/common/web/header.jsp" %>
 
+	<!-- Bootstrap core JavaScript -->
+	<script src="web/vendor/jquery/jquery.min.js"></script>
+	<script src="web/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 	<dec:body/>
 
 	<!-- Footer -->
 	<%@ include file="/common/web/footer.jsp" %>
-
-	<!-- Bootstrap core JavaScript -->
-	<script src="web/vendor/jquery/jquery.min.js"></script>
-	<script src="web/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
